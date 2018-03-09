@@ -1,0 +1,71 @@
+package parser;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.dom.ASTVisitor; 
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.SimpleName;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+
+
+public class TypeParser {
+
+	public static int defCount = 0; 
+	public static int refCount = 0; 
+	
+	public static String fileContents(String fileName) throws IOException {
+		System.getProperty("user.dir");
+		StringBuilder content = new StringBuilder();
+		BufferedReader reader = new BufferedReader(new FileReader(fileName));
+		String line = null; 
+		
+		while((line = reader.readLine()) != null) {
+			content.append(line);
+			content.append(System.lineSeparator());
+			line = reader.readLine(); 
+		}
+		
+		reader.close(); 
+		return reader.toString(); 
+	}
+	
+	public static void main(String[] args) throws IOException {
+	//	String directory = args[0];
+		String directory = "Test.java";
+		System.out.println("Given Path: "+ directory);
+		
+		Scanner input = new Scanner(System.in);
+		System.out.print("Java Type: ");
+		String type = input.next(); 
+		
+		ASTParser parser = ASTParser.newParser(AST.JLS8);
+		
+		char[] fileData = fileContents(directory).toCharArray(); 
+		
+		parser.setSource(directory.toCharArray());
+		parser.setKind(ASTParser.K_COMPILATION_UNIT);
+		
+		CompilationUnit cu = (CompilationUnit)parser.createAST(null);
+		
+		cu.accept(new ASTVisitor() {
+			
+				public boolean visit(VariableDeclarationFragment node){
+					SimpleName name = node.getName();
+					System.out.println("Name: " + name.toString());
+					defCount++; 
+					return false; 
+				}
+		}); 
+		
+		//Print Output 
+		System.out.println("");
+		System.out.println(type + "." + " Declarations found: " + defCount + ";");
+		System.out.println("references found: " + refCount);
+	}
+
+}
