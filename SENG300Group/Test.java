@@ -11,5 +11,10 @@ public class Test {
 	
 	public static void main(String args[]) {
 		test = "test"; 
+		test = "test"; 
+		test = "test"; 
+		test = "test"; 
+		test = "test"; 
+		testInt = 9; 
 	}
 }

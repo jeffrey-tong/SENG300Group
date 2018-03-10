@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -20,6 +21,7 @@ public class TypeParser {
 
 	public static int defCount = 0; 
 	public static int refCount = 0; 
+	public static String type; 
 	
 	//Read the contents of the input file 
 	public static String fileContents(String fileName) throws IOException {
@@ -41,7 +43,7 @@ public class TypeParser {
 		System.out.println("Given Path: "+ directory);
 		Scanner input = new Scanner(System.in);
 		System.out.print("Java Type: ");
-		String type = input.next(); 
+		type = input.next(); 
 		
 		ASTParser parser = ASTParser.newParser(AST.JLS8);
 		char[] fileData = fileContents(directory).toCharArray(); 
@@ -58,9 +60,12 @@ public class TypeParser {
 				//Records number of declarations of given type 
 				public boolean visit(VariableDeclarationFragment node){
 					SimpleName name = node.getName();
-					this.names.add(name.getIdentifier()); 
-					System.out.println("Name: " + name.toString());
-					defCount++; 
+					if(1==1/* User type == variable type*/) {
+							
+							this.names.add(name.getIdentifier()); 
+							System.out.println("Name: " + name.toString());
+							defCount++; 
+					}
 					return false; 
 				}
 				

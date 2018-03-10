@@ -1,0 +1,89 @@
+package parser;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.dom.ASTVisitor; 
+import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.SimpleName;
+import org.eclipse.jdt.core.dom.StructuralPropertyDescriptor;
+import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+
+
+public class TypeParser {
+
+	public static int defCount = 0; 
+	public static int refCount = 0; 
+	public static String type; 
+	
+	//Read the contents of the input file 
+	public static String fileContents(String fileName) throws IOException {
+		StringBuilder content = new StringBuilder();
+		BufferedReader reader = new BufferedReader(new FileReader(fileName));
+		String line = null; 
+		
+		while((line = reader.readLine()) != null) {
+			content.append(line);
+		}
+		
+		reader.close(); 
+		return content.toString(); 
+	}
+	
+	public static void main(String[] args) throws IOException {
+	//	String directory = args[0];
+		String directory = "Test.java";
+		System.out.println("Given Path: "+ directory);
+		Scanner input = new Scanner(System.in);
+		System.out.print("Java Type: ");
+		type = input.next(); 
+		
+		ASTParser parser = ASTParser.newParser(AST.JLS8);
+		char[] fileData = fileContents(directory).toCharArray(); 
+		
+		parser.setSource(fileData);
+		parser.setKind(ASTParser.K_COMPILATION_UNIT);
+		
+		CompilationUnit cu = (CompilationUnit)parser.createAST(null);
+		
+		cu.accept(new ASTVisitor() {
+			
+				ArrayList<Object> names = new ArrayList<Object>();
+			
+				//Records number of declarations of given type 
+				public boolean visit(VariableDeclarationFragment node){
+					SimpleName name = node.getName();
+					if(node.getStructuralProperty((StructuralPropertyDescriptor) node.structuralPropertiesForType())) == type) {
+							
+							this.names.add(name.getIdentifier()); 
+							System.out.println("Name: " + name.toString());
+							defCount++; 
+					}
+					return false; 
+				}
+				
+				//Records number of references to given type
+				public boolean visit(SimpleName node) {
+					if (this.names.contains(node.getIdentifier())) {
+						refCount++; 
+					}
+					return true; 
+				}
+				
+		}); 
+		
+		//Print Output 
+		System.out.println("");
+		System.out.println(type + "." + " Declarations found: " + defCount + ";");
+		System.out.println("references found: " + refCount);
+	}
+
+}
