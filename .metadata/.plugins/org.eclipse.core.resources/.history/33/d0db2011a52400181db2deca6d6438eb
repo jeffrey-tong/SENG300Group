@@ -20,9 +20,9 @@ public class TypeParserV2 {
 	public static int refCount = 0; 
 	public static String type; 
 	
-	public static String fileContents(String fileName, String classPath) throws IOException {
+	public static String fileContents(String fileName) throws IOException {
 		StringBuilder content = new StringBuilder(); 
-		BufferedReader reader = new BufferedReader(new FileReader(classPath + "\\" + fileName));
+		BufferedReader reader = new BufferedReader(new FileReader(fileName));
 		String line = null; 
 		
 		while((line = reader.readLine()) != null) {
@@ -42,7 +42,7 @@ public class TypeParserV2 {
 		for (File file : files) {
 			if (file.isFile()) {
 				ASTParser parser = ASTParser.newParser(AST.JLS8);
-				char[] fileData = fileContents(file.getName(),classPath[0]).toCharArray(); 
+				char[] fileData = fileContents(file.getName()).toCharArray(); 
 				
 				Scanner input = new Scanner(System.in);
 				System.out.print("Java Type: ");
@@ -51,7 +51,7 @@ public class TypeParserV2 {
 				
 				parser.setResolveBindings(true);
 				parser.setBindingsRecovery(true);
-				parser.setUnitName(file.getName());
+				parser.setUnitName(fileName);
 				parser.setKind(ASTParser.K_COMPILATION_UNIT);
 				parser.setEnvironment(classPath, null, null, false);
 				parser.setSource(fileData);

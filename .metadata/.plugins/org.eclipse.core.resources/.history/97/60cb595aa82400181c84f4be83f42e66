@@ -22,7 +22,8 @@ public class TypeParserV2 {
 	
 	public static String fileContents(String fileName, String classPath) throws IOException {
 		StringBuilder content = new StringBuilder(); 
-		BufferedReader reader = new BufferedReader(new FileReader(classPath + "\\" + fileName));
+		System.out.println(classPath + fileName);
+		BufferedReader reader = new BufferedReader(new FileReader(fileName));
 		String line = null; 
 		
 		while((line = reader.readLine()) != null) {
