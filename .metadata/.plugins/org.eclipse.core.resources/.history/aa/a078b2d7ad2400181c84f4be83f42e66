@@ -71,7 +71,6 @@ public class TypeParserV2 {
 						String[] nameSplit = typeName.split("\\s+"); 
 						
 						if (Arrays.asList(nameSplit).contains(type)) {
-							this.names.add(name.getIdentifier());
 							defCount++; 
 						}
 						return false; 

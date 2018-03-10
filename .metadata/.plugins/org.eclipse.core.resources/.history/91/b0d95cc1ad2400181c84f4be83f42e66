@@ -70,8 +70,9 @@ public class TypeParserV2 {
 						String typeName = binding.getVariableDeclaration().toString(); 
 						String[] nameSplit = typeName.split("\\s+"); 
 						
-						if (Arrays.asList(nameSplit).contains(type)) {
+						if ( Arrays.asList(nameSplit).contains(type)) {
 							this.names.add(name.getIdentifier());
+							System.out.println("Name: " + name.toString());
 							defCount++; 
 						}
 						return false; 

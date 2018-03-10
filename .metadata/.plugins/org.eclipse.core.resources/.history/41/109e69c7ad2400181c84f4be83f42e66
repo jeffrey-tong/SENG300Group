@@ -72,6 +72,7 @@ public class TypeParserV2 {
 						
 						if (Arrays.asList(nameSplit).contains(type)) {
 							this.names.add(name.getIdentifier());
+							System.out.println("Name: " + name.toString());
 							defCount++; 
 						}
 						return false; 

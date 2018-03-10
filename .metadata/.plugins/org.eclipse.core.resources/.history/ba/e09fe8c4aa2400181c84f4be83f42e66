@@ -1,15 +1,14 @@
-package testFiles;
+package parser;
 
 public class Test {
 
-	private static String test;
+	private String test;
 	private String test2;
 	private String test3; 
 	private String test4;
-	private static int testInt; 
+	private int testInt; 
 	private String test5; 
 	private boolean testBool; 
-	private TestObject object = new TestObject();
 	
 	public static void main(String args[]) {
 		test = "test"; 

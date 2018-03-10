@@ -9,7 +9,6 @@
 <fullyQualifiedTypeName name="org.eclipse.jdt.core.dom.VariableDeclarationStatement"/>
 <fullyQualifiedTypeName name="org.eclipse.jdt.core.dom.IVariableBinding"/>
 <fullyQualifiedTypeName name="org.eclipse.jdt.core.JavaCore"/>
-<fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="java.io.FileReader"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
@@ -17,4 +16,5 @@
 <fullyQualifiedTypeName name="org.eclipse.jdt.core.dom.AST"/>
 <fullyQualifiedTypeName name="org.eclipse.jdt.core.dom.CompilationUnit"/>
 <fullyQualifiedTypeName name="org.eclipse.jdt.core.ICompilationUnit"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
 </qualifiedTypeNameHistroy>

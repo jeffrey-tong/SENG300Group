@@ -9,7 +9,6 @@ public class Test {
 	private static int testInt; 
 	private String test5; 
 	private boolean testBool; 
-	private TestObject object = new TestObject();
 	
 	public static void main(String args[]) {
 		test = "test"; 
